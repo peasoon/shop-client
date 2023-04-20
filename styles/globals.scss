@@ -9,10 +9,10 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100vh !important;
   display: flex;
   flex-direction: column;
-  > div {
+  > div:first-child {
     min-height: 100%;
     flex-grow: 1;
     display: flex;
@@ -65,6 +65,31 @@ main {
   flex-grow: 1;
 }
 
+.shop {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  .shop-item {
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    > div > span:nth-child(odd) {
+      color: red;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    &__image {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 5/4;
+      grid-row: 4 span;
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}
+
 .footer {
   .footer-container {
     display: flex;
@@ -81,4 +106,8 @@ main {
       }
     }
   }
+}
+
+
+.chakra-portal {
 }

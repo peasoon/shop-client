@@ -2,6 +2,7 @@ import * as React from "react";
 import HeaderLogo from "./HeaderLogo";
 import HeaderSearch from "./HeaderSearch";
 import HeaderCart from "./HeaderCart";
+import CartDrawer from "../cart/CartDrawer";
 
 interface IHeaderProps {}
 
@@ -16,7 +17,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
           <HeaderSearch />
         </div>
         <div className="header-cart">
-          <HeaderCart />
+          <CartDrawer />
         </div>
       </div>
     </header>
