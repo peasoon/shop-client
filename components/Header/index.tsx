@@ -3,6 +3,7 @@ import HeaderLogo from "./HeaderLogo";
 import HeaderSearch from "./HeaderSearch";
 import HeaderCart from "./HeaderCart";
 import CartDrawer from "../cart/CartDrawer";
+import Categories from "../Categories";
 
 interface IHeaderProps {}
 

@@ -1,20 +1,54 @@
 import instance from "@/api/api_instance";
+import Categories from "@/components/Categories";
 import ShopItem from "@/components/shop/ShopItem";
+import { fetchCategories } from "@/redux/categoriesSlice";
+import { useActions, useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IProduct } from "@/types/product.interface";
 import { GetStaticPropsContext, GetStaticPropsResult, NextPage } from "next";
-import * as React from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 interface IShopPage {
   products: IProduct[];
 }
 
+
+
 const ShopPage: NextPage<IShopPage> = (props) => {
+  async function changeStock(category: string) {
+    const data = (await instance.get(`/products?category=${category}`))
+      .data as IProduct[];
+    setStock(data);
+  }
+  const dispatch = useAppDispatch();
+ 
+  const [stock, setStock] = useState(props.products);
+  const currentCategory = useAppSelector(
+    (state) => state.categories.currentCategory
+  );
+  const router = useRouter();
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
+
+  useEffect(() => {
+    if (router.query.hasOwnProperty("category")) {
+      console.log('has own')
+      changeStock(router.query.category as string);
+    } else {
+      changeStock(currentCategory);
+    }
+  }, [router.query]);
+
   return (
     <main>
       <div className="container">
+        <div className="shop-categories">
+          <Categories />
+        </div>
         <div className="shop">
-          {props.products &&
-            props.products.map((product) => (
+          {stock &&
+            stock.map((product) => (
               <ShopItem key={product.product_id} {...product} />
             ))}
         </div>

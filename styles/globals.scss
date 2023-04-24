@@ -89,6 +89,22 @@ main {
     }
   }
 }
+.shop-categories {
+  margin-bottom: 10px;
+}
+.categories {
+  width: fit-content;
+  margin: 0 auto;
+  span {
+    background-color: beige;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    + span {
+      margin-left: 10px;
+    }
+  }
+}
 
 .footer {
   .footer-container {
@@ -107,7 +123,6 @@ main {
     }
   }
 }
-
 
 .chakra-portal {
 }
