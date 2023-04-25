@@ -71,6 +71,7 @@ main {
   gap: 20px;
   .shop-item {
     border: 1px solid black;
+    position: relative;
     display: grid;
     grid-template-columns: 30% 70%;
     > div > span:nth-child(odd) {
@@ -85,6 +86,20 @@ main {
       grid-row: 4 span;
       img {
         object-fit: cover;
+      }
+    }
+    &__add {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      button {
+        border: 1px solid black;
+        padding: 0 5px;
+        transition: all 0.5s;
+        background-color: #fff;
+        &:hover {
+          background-color: darken(#fff,25%);
+        }
       }
     }
   }

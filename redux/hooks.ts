@@ -4,6 +4,7 @@ import type { RootState, AppDispatch } from "./store";
 import { bindActionCreators } from "@reduxjs/toolkit";
 import { useMemo } from "react";
 import { categoriesSlice } from "./categoriesSlice";
+import { cartActions } from "./cartSlice";
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch: () => AppDispatch = useDispatch;
@@ -11,6 +12,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const rootAction = {
   ...categoriesSlice.actions,
+  ...cartActions
 };
 
 export const useActions = () => {

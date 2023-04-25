@@ -1,14 +1,18 @@
+import { useActions } from "@/redux/hooks";
 import { IProduct } from "@/types/product.interface";
 import Image from "next/image";
 import * as React from "react";
 
 const ShopItem: React.FunctionComponent<IProduct> = ({
+  product_id,
   name,
+  slug,
   description,
   category,
   image,
   price,
 }) => {
+  const { addToCart } = useActions();
   return (
     <div className="shop-item">
       <div className="shop-item__image">
@@ -40,6 +44,24 @@ const ShopItem: React.FunctionComponent<IProduct> = ({
             currency: "USD",
           })}
         </span>
+      </div>
+      <div className="shop-item__add">
+        <button
+          onClick={() => {
+            addToCart({
+              product_id,
+              name,
+              slug,
+              description,
+              category,
+              image,
+              price,
+              quantity: 1,
+            });
+          }}
+        >
+          Add
+        </button>
       </div>
     </div>
   );
