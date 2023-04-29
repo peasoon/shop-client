@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/redux/hooks";
 import {
   Drawer,
   DrawerBody,
@@ -12,11 +13,13 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useRef } from "react";
-
+import CartItem from "./CartItem";
 
 function CartDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef(null);
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const total = useAppSelector((state) => state.cart.total);
 
   return (
     <>
@@ -32,17 +35,25 @@ function CartDrawer() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
-
-          <DrawerBody>
-            <Input placeholder="Type here..." />
+          <DrawerHeader>Your cart items</DrawerHeader>
+          <DrawerBody padding={"0px 10px"}>
+            {cartItems.map((item) => (
+              <CartItem {...item} key={item.product_id} />
+            ))}
           </DrawerBody>
 
           <DrawerFooter>
+            <span style={{ marginRight: "auto" }}>
+              Total:{" "}
+              {Number(total).toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </span>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Button colorScheme="blue">Order</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

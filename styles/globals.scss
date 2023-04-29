@@ -98,7 +98,7 @@ main {
         transition: all 0.5s;
         background-color: #fff;
         &:hover {
-          background-color: darken(#fff,25%);
+          background-color: darken(#fff, 25%);
         }
       }
     }
@@ -106,6 +106,53 @@ main {
 }
 .shop-categories {
   margin-bottom: 10px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  border: 1px solid black;
+  position: relative;
+  &__remove {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    button {
+      border: 1px solid black;
+      border-radius: 2px;
+      padding: 0 3px;
+    }
+  }
+  &__image {
+    position: relative;
+    aspect-ratio: 2/1;
+    width: 80px;
+    grid-row: span 2;
+    align-self: center;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__title {
+    span {
+      font-weight: bold;
+    }
+  }
+  &__description {
+    span {
+      font-weight: bold;
+    }
+  }
+  &__quantity {
+    grid-column: span 2;
+    input {
+    }
+  }
+  + .cart-item {
+    margin-top: 10px;
+  }
 }
 .categories {
   width: fit-content;
