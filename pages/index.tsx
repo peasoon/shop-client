@@ -12,20 +12,25 @@ interface IShopPage {
   products: IProduct[];
 }
 
-
-
 const ShopPage: NextPage<IShopPage> = (props) => {
-  async function changeStock(category: string) {
-    const data = (await instance.get(`/products?category=${category}`))
-      .data as IProduct[];
+  async function changeStock(category: string, searchStr: string) {
+    const data = (
+      await instance.get(
+        `/products?${category ? `category=${category}` : ''}${
+          searchStr ? `&title=${searchStr}` : ''
+        }`
+      )
+    ).data as IProduct[];
     setStock(data);
   }
   const dispatch = useAppDispatch();
- 
+
   const [stock, setStock] = useState(props.products);
   const currentCategory = useAppSelector(
     (state) => state.categories.currentCategory
   );
+
+  const searchString = useAppSelector((state) => state.search.searchString);
   const router = useRouter();
   useEffect(() => {
     dispatch(fetchCategories());
@@ -33,12 +38,12 @@ const ShopPage: NextPage<IShopPage> = (props) => {
 
   useEffect(() => {
     if (router.query.hasOwnProperty("category")) {
-      console.log('has own')
-      changeStock(router.query.category as string);
+      console.log("has own");
+      changeStock(router.query.category as string, searchString);
     } else {
-      changeStock(currentCategory);
+      changeStock(currentCategory, searchString);
     }
-  }, [router.query]);
+  }, [router.query, searchString]);
 
   return (
     <main>
